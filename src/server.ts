@@ -1,20 +1,11 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
+import App from './app';
+import PostsController from './posts/posts.controller';
 
-function loggerMiddleware(request:express.Request, response: express.Resonse, next)
-{
-    console.log(`${request.method} ${request.path}`);
-    next();
-}
+const app = new App(
+    [
+        new PostsController(),
+    ],
+    5000
+);
 
-
-const app = express();
-
-app.use(loggerMiddleware);
-app.use(bodyParser.json());
-
-app.get('/',(request,response)=>{
-    response.send('hello!');
-})
-
-app.listen('5000');
+app.listen();
