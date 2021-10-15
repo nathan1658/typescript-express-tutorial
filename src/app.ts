@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as mongoose from 'mongoose';
 
 class App {
     public app: express.Application;
@@ -11,6 +12,7 @@ class App {
 
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
+        this.connectDb();
     }
 
     private initializeMiddlewares() {
@@ -28,6 +30,12 @@ class App {
             console.log(`App listening on the port ${this.port}`);
         })
     }
+
+    private connectDb() {
+        const { MONGO_PATH, PORT } = process.env;
+        mongoose.connect(`mongodb://${MONGO_PATH}:${PORT}`)
+    }
+
 }
 
 export default App;
