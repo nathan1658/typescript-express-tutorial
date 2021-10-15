@@ -13,9 +13,7 @@ const app = new App(
     5000
 );
 
-const { MONGO_PATH, PORT } = process.env;
 
-mongoose.connect(`mongodb://${MONGO_PATH}:${PORT}`)
 
 
 app.listen();

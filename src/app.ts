@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
+import errorMiddleware from './middleware/error.middleware'
 
 class App {
     public app: express.Application;
@@ -10,9 +11,14 @@ class App {
         this.app = express();
         this.port = port;
 
+        this.connectDb();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
-        this.connectDb();
+        this.initializeErrorHandling();
+    }
+
+    private initializeErrorHandling() {
+        this.app.use(errorMiddleware)
     }
 
     private initializeMiddlewares() {
